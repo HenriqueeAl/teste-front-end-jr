@@ -1,0 +1,72 @@
+@import '../colors.scss';
+
+.partners{
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 69px;
+    @media (max-width:1330px) {
+        padding: 0 2%;
+    }
+    @media (max-width:1230px) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.partner{
+    width: 574px;
+    height: 350px;
+    background-image: url('/partners/partner-bg.png');
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-left: 40px;
+    @media (max-width:1230px) {
+        margin-top: 20px;
+    }
+    @media (max-width:660px){
+        width: 90%;
+        border-radius: 10px;
+        padding-left: 20px;
+    }
+    h4{
+        color: $white;
+        font-weight: 700;
+        font-size: 40px;
+        margin-bottom: 8px;
+        @media (max-width:660px){
+            font-size: 35px;
+        }
+    }
+    p{
+        color: $white;
+        font-size: 16px;
+        margin-bottom: 32px;
+        max-width: 186px;
+    }
+    button{
+        width: 130px;
+        height: 48px;
+        color: $white;
+        background: $primaryColor;
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 40px;
+        font-weight: 900;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.5s all;
+    }
+    button:hover{
+        opacity: 0.7;
+        transition: 0.5s all;
+    }
+}
+.product_partner{
+    height: 280px;
+    background-image: url('/partners/product-partner.png');
+    border-radius: 10px;
+}

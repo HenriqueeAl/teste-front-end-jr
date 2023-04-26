@@ -1,0 +1,255 @@
+@import '../colors.scss';
+
+.products{
+    margin-top: 60px;
+    .products_line{
+        border-bottom: 1px solid #DEDEDE;
+        max-width: 1138px;
+        margin: 0 auto;
+        @media (max-width:1200px) {
+            max-width: 88%;
+        }
+    }
+    h1{
+        width: fit-content;
+        padding: 0 34px;
+        margin: 0 auto;
+        font-weight: 700;
+        font-size: 30px;
+        color: $primaryColor;
+        position: relative;
+        top: -20px;
+        background-color: $white;
+        @media (max-width:680px) {
+            font-size: 24px;
+            padding: 0 15px;
+        }
+        @media (max-width:400px) {
+            font-size: 20px;
+            padding: 0 5px;
+        }
+    }
+    >p{
+        width: fit-content;
+        margin: 0 auto;
+        color: rgb(63, 63, 64);
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 1s all;
+        margin-bottom: 15px;
+        margin-top: -15px;
+    }
+    >p:hover{
+        opacity: 0.6;
+        transition: 1s all;
+    }
+    .products_categorias{
+        margin-top: 10px;
+        max-width: 1260px;
+        margin: 0 auto;
+        margin-top: -15px;
+        @media (max-width:1330px) {
+            max-width: 93%;
+        }
+        ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            @media (max-width:680px) {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            li{
+                width: calc(1260px / 6);
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid rgb(189, 189, 189);
+                color: rgb(59, 59, 59);
+                font-size: 16px;
+                cursor: pointer;
+                transition: 0.4s all;
+                @media (max-width:1330px) {
+                    font-size: 13px;
+                }
+                @media (max-width:1000px) {
+                    font-size: 12px;
+                }
+                @media (max-width:680px) {
+                    width: calc(93% / 3);
+                }
+                @media (max-width:380px) {
+                    font-size: 10px;
+                }
+            }
+            li:hover{
+                color: $primaryColor;
+                transition: 0.4s all;
+            }
+            .select{
+                color: $primaryColor;
+            }
+        }
+    }
+    .products_list{
+        max-width: 1390px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        @media (max-width:1400px) {
+            width: 96%;
+        }
+        ul{
+            max-width: 1290px;
+            list-style: none;
+            display: flex;
+            overflow: hidden;
+            padding: 17px;
+            margin: 0 auto;
+            padding-left: 15px;
+        }
+        >img{
+            cursor: pointer;
+        }
+        .products_arrowright{
+            transform: rotate(180deg);
+            margin-left: 15px;
+        }
+        .products_arrowleft{
+            padding-right: 15px;
+        }
+    }
+}
+
+.product{
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+    padding: 11px;
+    margin-right: 62px;
+    border-radius: 10px;
+    img{
+        margin-top: 22px;
+    }
+    .product_name{
+        font-size: 15px;
+        font-weight: 300;
+        color: rgb(63, 63, 64);
+        margin-top: 19px;
+    }
+    .product_price{
+        color: rgb(128, 128, 128);
+        text-decoration-line: line-through;
+        font-size: 16px;
+        margin-top: 12px;
+    }
+    .product_pricedesc{
+        font-weight: 700;
+        font-size: 20px;
+        color: rgb(63, 63, 64);
+    }
+    .product_parc{
+        font-size: 12px;
+        color: rgb(63, 63, 64);
+    }
+    .product_frete{
+        color: $primaryColor;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    button{
+        width: 100%;
+        height: 44px;
+        background: #F71963;
+        border-radius: 4px;
+        border: none;
+        color: $white;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: 0.5s all;
+    }
+    button:hover{
+        opacity: 0.8;
+        transition: 0.5s all;
+    }
+}
+.product:nth-last-child(1){
+    margin-right: 0px;
+}
+
+.product_modal_bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.54);
+}
+
+.product_modal{
+    width: 769px;
+    height: 300px;
+    background-color: $white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    @media (max-width:850px) {
+        width: fit-content;
+        height: fit-content;
+        flex-direction: column;
+        padding: 50px;
+    }
+    @media (max-width:400px) {
+        padding: 25px;
+    }
+    .product_close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        padding: 5px;
+    }
+    .content{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        font-family: 'Lato';
+        .product_name{
+            color: #041E50;
+            font-size: 20px;
+            letter-spacing: 0.05em;
+            margin-top: 57px;
+        }
+        .product_price{
+            font-weight: 900;
+            font-size: 20px;
+            color: #041E50;
+            letter-spacing: 0.05em;
+            margin-top: 20px;
+        }
+        .product_desc{
+            font-size: 10px;
+            color: rgb(34, 34, 34);
+            max-width: 290px;
+            margin-top: 17px;
+        }
+        .product_more{
+            width: fit-content;
+            font-size: 12px;
+            color: #041E50;
+            text-decoration: none;
+            margin-top: 17px;
+            transition: 0.5s all;
+        }
+        .product_more:hover{
+            opacity: 0.6;
+            transition: 0.5s all;
+        }
+    }
+}
