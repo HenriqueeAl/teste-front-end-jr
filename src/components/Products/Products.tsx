@@ -13,9 +13,9 @@ const Product = (props: Product)=>{
 
     return (
         <>
-        {modal == true ? 
+        {modal == true ?
         <>
-        <div className='product_modal_bg' onClick={()=>setModal(false)}></div> 
+        <div className='product_modal_bg' onClick={()=>setModal(false)}></div>
         <div className='product_modal'>
             <img src={props.img} alt={props.desc} />
             <div className='content'>
@@ -63,7 +63,7 @@ export const Products = (props: Products) => {
 
     useEffect(()=>{
         setMaxid(productslist.length-4)
-        
+
     }, [productslist])
 
     useEffect(()=>{
@@ -77,21 +77,27 @@ export const Products = (props: Products) => {
         }else if(width < 354){
             setMaxid(productslist.length)
         }
-    }, [idatual])
+    }, [idatual, width, productslist.length]) // Added dependencies
 
     useEffect(()=>{
-        window.addEventListener('resize', function() {
-            setWidth(this.window.innerWidth)
-        });
-    }, [width])
+        const handleResize = () => { // Named function for clarity
+            setWidth(window.innerWidth)
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial width check
+
+        return () => { // Cleanup function
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []) // Empty dependency array ensures this runs only once on mount and cleans up on unmount
 
     let i = 0
 
     return (
         <section className="products">
             <div className='products_line'></div>
-            <h1>Produtos relacionados</h1>
-            {props.types == true ? 
+            <h1>Combo de produtos</h1>
+            {props.types == true ?
             <div className='products_categorias'>
                 <ul>
                     <li className='select'>CELULAR</li>
@@ -106,21 +112,18 @@ export const Products = (props: Products) => {
             <p>Ver todos</p>
             }
             <div className='products_list'>
-                <img src="/arrow.png" alt="arrow esquerda" className='products_arrowleft' style={idatual == 0 ? {visibility: 'hidden'} : {}} onClick={()=>{
-                    if(idatual > 3){
-                        setIdatual(idatual-1)
-                    }else if(idatual > 0){
+                <img src="/arrow.png" alt="arrow esquerda" className='products_arrowleft' style={idatual === 0 ? {visibility: 'hidden'} : {}} onClick={()=>{ // Use strict equality
+                    if(idatual > 0){ // Simplified logic
                         setIdatual(idatual-1)
                     }
                 }} />
                 <ul ref={scroll}>
-                    {productslist.map((e: any)=>{
-                        i++
-                        return <Product key={i} img={e.photo} desc={e.descriptionShort} price={e.price}></Product>
+                    {productslist.map((e: any, index: number)=>{ // Use index as key if no unique id is available
+                        return <Product key={index} img={e.photo} desc={e.descriptionShort} price={e.price}></Product>
                     })}
-                </ul> 
-                <img src="/arrow.png" alt="arrow direita" style={idatual == maxid ? {visibility: 'hidden'} : {}} className='products_arrowright' onClick={()=>{
-                    if(idatual+1 < maxid+1){
+                </ul>
+                <img src="/arrow.png" alt="arrow direita" style={idatual >= maxid ? {visibility: 'hidden'} : {}} className='products_arrowright' onClick={()=>{ // Use strict equality and check >=
+                    if(idatual < maxid){ // Simplified logic
                         setIdatual(idatual+1)
                     }
                 }} />
