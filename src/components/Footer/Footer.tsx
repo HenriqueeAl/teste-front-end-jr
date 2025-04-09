@@ -36,15 +36,15 @@ export const Footer = ()=>{
                             <h5>FORMAS DE PAGAMENTO</h5>
                             <div className='footer_flags'>
                                 <img src="./footer/visa.png" alt="visa"/>
-                                <img src="./footer/elo.png" alt="visa"/>
-                                <img src="./footer/alelo.png" alt="visa"/>
-                                <img src="./footer/dinners.png" alt="visa"/>
-                                <img src="./footer/ifood.png" alt="visa"/>
-                                <img src="./footer/mastercard.png" alt="visa"/>
-                                <img src="./footer/pix.png" alt="visa"/>
-                                <img src="./footer/amex.png" alt="visa"/>
-                                <img src="./footer/ticket.png" alt="visa"/>
-                                <img src="./footer/sodexo.png" alt="visa"/>
+                                <img src="./footer/elo.png" alt="elo"/>
+                                <img src="./footer/alelo.png" alt="alelo"/>
+                                <img src="./footer/dinners.png" alt="dinners"/>
+                                <img src="./footer/ifood.png" alt="ifood"/>
+                                <img src="./footer/mastercard.png" alt="mastercard"/>
+                                <img src="./footer/pix.png" alt="pix"/>
+                                <img src="./footer/amex.png" alt="amex"/>
+                                <img src="./footer/ticket.png" alt="ticket"/>
+                                <img src="./footer/sodexo.png" alt="sodexo"/>
                             </div>
                         </div>
                     </div>
@@ -55,6 +55,16 @@ export const Footer = ()=>{
                             <input type="text" placeholder='SEU E-MAIL'/>
                             <button>OK</button>
                         </form>
+                    </div>
+                </div>
+                <div className='footer_testimonials'>
+                    <h5>O que dizem nossos clientes</h5>
+                    <div className='testimonials_container'>
+                         <div className='testimonial_item'>
+                             <p>"Amei a experiência de compra! Produtos de ótima qualidade e entrega super rápida."</p>
+                             <span>- Joana S.</span>
+                         </div>
+                         {/* Adicione mais depoimentos conforme necessário */}
                     </div>
                 </div>
                 <div className='footer_bottom'>
