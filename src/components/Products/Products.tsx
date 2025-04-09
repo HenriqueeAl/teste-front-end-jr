@@ -72,13 +72,21 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 
     useEffect(() => {
         setIsClient(true); // Component did mount on client
-        const timer = setTimeout(() => {
-            setTimeLeft(calculateTimeLeft());
-        }, 1000);
+        // Use requestAnimationFrame for smoother updates, falling back to setTimeout
+        let animationFrameId: number;
+        const updateTimer = () => {
+          setTimeLeft(calculateTimeLeft());
+          if (+new Date(targetDate) - +new Date() > 0) {
+            animationFrameId = requestAnimationFrame(updateTimer);
+          }
+        };
+        animationFrameId = requestAnimationFrame(updateTimer);
 
-        // Clear timeout if the component is unmounted or time runs out
-        return () => clearTimeout(timer);
-    }); // Runs on every render after the first one
+
+        // Clear animation frame on unmount
+        return () => cancelAnimationFrame(animationFrameId);
+    }, [targetDate]); // Re-run effect if targetDate changes
+
 
     const timerComponents: JSX.Element[] = [];
 
@@ -86,23 +94,23 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
     if (isClient && Object.keys(timeLeft).length) {
         Object.keys(timeLeft).forEach((interval) => {
             const value = timeLeft[interval as keyof TimeLeft];
-            if (value === undefined || isNaN(value)) {
-                return; // Don't render if value is invalid
+            // Check if value is defined and not NaN before rendering
+            if (value !== undefined && !isNaN(value)) {
+                 timerComponents.push(
+                    <div key={interval} className="countdownTimer__item">
+                        <span className="countdownTimer__value">{value < 10 ? `0${value}` : value}</span>
+                        <span className="countdownTimer__label">{interval.charAt(0)}</span> {/* d, h, m, s */}
+                    </div>
+                );
             }
-
-            timerComponents.push(
-                <div key={interval} className="countdownTimer__item">
-                    <span className="countdownTimer__value">{value < 10 ? `0${value}` : value}</span>
-                    <span className="countdownTimer__label">{interval.charAt(0)}</span> {/* d, h, m, s */}
-                </div>
-            );
         });
     }
 
 
     if (!isClient) {
         // Render placeholder or null on the server/initial render
-        return null; // Or a loading indicator
+        // You could render a static version or a placeholder here
+        return <div className="countdownTimer"></div>; // Render an empty container server-side
     }
 
 
@@ -114,13 +122,13 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 };
 
 
-interface Products {
+interface ProductsProps {
     productslist: Array<Object>;
     types: boolean;
-    targetDate: string; // Add target date prop for the countdown
+    targetDate?: string; // Make targetDate optional
 }
 
-export const Products = (props: Products) => {
+export const Products = (props: ProductsProps) => {
 
     const [idatual,setIdatual] = useState(0)
     const [maxid,setMaxid] = useState(0)
@@ -135,32 +143,38 @@ export const Products = (props: Products) => {
 
     useEffect(()=>{
         // Recalculate maxid based on current width and product list
-        let itemsVisible = 4; // Default for desktop
-        if (width < 700) {
-            itemsVisible = 1;
-        } else if (width < 1040) {
-            itemsVisible = 2;
-        } else if (width < 1400) {
-            itemsVisible = 3;
-        }
+        if (!scroll.current || productslist.length === 0) {
+            setMaxid(0);
+            return;
+        };
+
+        const listWidth = scroll.current.offsetWidth;
+        // Assuming all items have roughly the same width, get the first item's width
+        const firstItem = scroll.current.querySelector('li');
+        const itemWidth = firstItem ? firstItem.offsetWidth : 330; // Default width if no items
+
+        // Calculate how many items fit fully within the container
+        const itemsVisible = Math.max(1, Math.floor(listWidth / itemWidth));
 
         const newMaxId = Math.max(0, productslist.length - itemsVisible);
         setMaxid(newMaxId);
 
-        // Reset idatual if it's out of bounds
+        // Reset idatual if it's out of bounds after resize or list change
         if(idatual > newMaxId) {
             setIdatual(newMaxId);
         }
 
-    }, [productslist, width, idatual]); // Recalculate on list, width change, or idatual change
+    }, [productslist, width, idatual, scroll.current]); // Add scroll.current as dependency
+
 
     useEffect(() => {
       if (scroll.current) {
-        // Calculate scroll position based on item width (adjust 330 if needed)
-        const itemWidth = width < 700 ? scroll.current.offsetWidth : 330; // Example: full width on small screens
+        const firstItem = scroll.current.querySelector('li');
+        const itemWidth = firstItem ? firstItem.offsetWidth : 330; // Use actual item width if possible
         scroll.current.scrollTo({ left: idatual * itemWidth, behavior: 'smooth' });
       }
-    }, [idatual, width]); // Scroll effect depends on idatual and width
+    }, [idatual]); // Scroll effect only depends on idatual
+
 
     useEffect(()=>{
         // Ensure this runs only on the client
@@ -170,7 +184,7 @@ export const Products = (props: Products) => {
             setWidth(window.innerWidth)
         };
         window.addEventListener('resize', handleResize);
-        handleResize(); // Initial width check
+        // No need for handleResize() here, initial width is set in useState
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -180,7 +194,9 @@ export const Products = (props: Products) => {
     // Memoize product list mapping to avoid unnecessary re-renders
     const productComponents = useMemo(() => (
         productslist.map((e: any, index: number)=>{
-            return <Product key={e.productId || index} img={e.photo} desc={e.descriptionShort} price={e.price}></Product> // Use productId if available
+             // Ensure key is unique and stable, prefer productId
+            const key = e.productId ? `product-${e.productId}` : `product-index-${index}`;
+            return <Product key={key} img={e.photo} desc={e.descriptionShort} price={e.price}></Product>
         })
     ), [productslist]);
 
@@ -188,7 +204,7 @@ export const Products = (props: Products) => {
         <section className="products">
             <div className='products_line'></div>
             <h1>Combo de produtos selecionados</h1>
-            {/* Add the Countdown Timer */}
+            {/* Conditionally render the Countdown Timer only if targetDate is provided */}
             {props.targetDate && <CountdownTimer targetDate={props.targetDate} />}
 
             {props.types == true ?
@@ -211,6 +227,7 @@ export const Products = (props: Products) => {
                     className='products_arrowleft'
                     style={idatual === 0 ? {visibility: 'hidden', cursor: 'default'} : {}}
                     onClick={()=>{
+                       // Use functional update to ensure state consistency
                        setIdatual(prevId => Math.max(0, prevId - 1));
                     }}
                     disabled={idatual === 0} // Disable button when at start
@@ -225,6 +242,7 @@ export const Products = (props: Products) => {
                     className='products_arrowright'
                     style={idatual >= maxid ? {visibility: 'hidden', cursor: 'default'} : {}}
                     onClick={()=>{
+                        // Use functional update
                         setIdatual(prevId => Math.min(maxid, prevId + 1));
                     }}
                      disabled={idatual >= maxid} // Disable button when at end
