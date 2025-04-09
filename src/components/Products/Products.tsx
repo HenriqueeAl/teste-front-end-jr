@@ -91,12 +91,10 @@ export const Products = (props: Products) => {
         }
     }, []) // Empty dependency array ensures this runs only once on mount and cleans up on unmount
 
-    let i = 0
-
     return (
         <section className="products">
             <div className='products_line'></div>
-            <h1>Combo de produtos</h1>
+            <h1>Combo de produtos selecionados</h1>
             {props.types == true ?
             <div className='products_categorias'>
                 <ul>
