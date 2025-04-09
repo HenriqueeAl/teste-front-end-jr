@@ -30,7 +30,7 @@ const Product = (props: Product)=>{
         : <></>}
         <li className='product'>
             <img src={props.img} alt={props.desc} />
-            <p className='product_name'>{props.desc}</p>
+            <p className='product_name'>{props.desc} </p>
             <p className='product_price'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price + 200)}</p>
             <p className='product_pricedesc'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price)}</p>
             <p className='product_parc'>ou 2x de {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price/2)} sem juros</p>
@@ -68,10 +68,8 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
     };
 
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
-    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        setIsClient(true);
         let animationFrameId: number;
         const updateTimer = () => {
           setTimeLeft(calculateTimeLeft());
@@ -88,7 +86,7 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 
     const timerComponents: JSX.Element[] = [];
 
-    if (isClient && Object.keys(timeLeft).length) {
+    if (Object.keys(timeLeft).length) {
         Object.keys(timeLeft).forEach((interval) => {
             const value = timeLeft[interval as keyof TimeLeft];
             if (value !== undefined && !isNaN(value)) {
@@ -101,12 +99,6 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
             }
         });
     }
-
-
-    if (!isClient) {
-        return <div className="countdownTimer" style={{ visibility: 'hidden', height: '0', margin: '0' }}></div>;
-    }
-
 
     return (
         <div className="countdownTimer">
