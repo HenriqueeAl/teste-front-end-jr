@@ -124,54 +124,82 @@
 }
 
 .product{
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
-    padding: 11px;
-    margin-right: 62px;
-    border-radius: 10px;
-    img{
-        margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  margin-right: 16px;
+  border-radius: 4px;
+  background-color: $white;
+  height: 100%;
+
+  .product__image-container {
+      margin-bottom: 16px;
+      img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+      }
+  }
+
+  .product_name {
+    font-size: 14px;
+    font-weight: 400;
+    color: #3f3f40;
+    margin-top: 8px;
+    min-height: 40px;
+    line-height: 1.4;
+  }
+
+  .product_price {
+    color: #727273;
+    text-decoration: line-through;
+    font-size: 12px;
+    margin-top: 8px;
+    height: 16px;
+  }
+
+  .product_pricedesc {
+    font-weight: 700;
+    font-size: 18px;
+    color: #3f3f40;
+    margin-top: 4px;
+  }
+
+  .product_parc {
+    font-size: 12px;
+    color: #3f3f40;
+    margin-top: 4px;
+    min-height: 16px;
+  }
+
+  .product_frete {
+    color: $primaryColor;
+    font-size: 12px;
+    margin-top: 8px;
+    min-height: 16px;
+  }
+
+  button {
+    width: 100%;
+    height: 40px;
+    background: $primaryColor;
+    border-radius: 4px;
+    border: none;
+    color: $white;
+    margin-top: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
+      transition: background-color 0.3s ease, opacity 0.3s ease;
     }
-    .product_name{
-        font-size: 15px;
-        font-weight: 300;
-        color: rgb(63, 63, 64);
-        margin-top: 19px;
-    }
-    .product_price{
-        color: rgb(128, 128, 128);
-        text-decoration-line: line-through;
-        font-size: 16px;
-        margin-top: 12px;
-    }
-    .product_pricedesc{
-        font-weight: 700;
-        font-size: 20px;
-        color: rgb(63, 63, 64);
-    }
-    .product_parc{
-        font-size: 12px;
-        color: rgb(63, 63, 64);
-    }
-    .product_frete{
-        color: $primaryColor;
-        font-size: 12px;
-        margin-top: 5px;
-    }
-    button{
-        width: 100%;
-        height: 44px;
-        background: #F71963;
-        border-radius: 4px;
-        border: none;
-        color: $white;
-        margin-top: 10px;
-        cursor: pointer;
-        transition: 0.5s all;
-    }
-    button:hover{
-        opacity: 0.8;
-        transition: 0.5s all;
-    }
+  }
 }
 .product:nth-last-child(1){
     margin-right: 0px;
