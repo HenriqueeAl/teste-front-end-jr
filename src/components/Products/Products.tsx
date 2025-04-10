@@ -186,7 +186,7 @@ export const Products = (props: ProductsProps) => {
         <section className="products">
             <div className='products_line'></div>
             <h1>Combo de produtos selecionados</h1>
-            {props.targetDate && <CountdownTimer targetDate={props.targetDate} />}
+            <CountdownTimer targetDate={props.targetDate || ''} />
 
             {props.types == true ?
             <div className='products_categorias'>
