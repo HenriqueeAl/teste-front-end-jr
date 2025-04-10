@@ -25,9 +25,9 @@ function App() {
       <Categs></Categs>
       <Banner></Banner>
       <Departments></Departments>
-      <Products types={true} productslist={productslist}></Products>
+      <Products types={true} productslist={productslist} targetDate="2025-10-01"></Products>
       <Partners name='Parceiros' desc='Lorem ipsum dolor sit amet, consectetur' button='CONFIRA' type='partner'></Partners>
-      <Products types={false} productslist={productslist}></Products >
+      <Products types={false} productslist={productslist} targetDate="2025-10-01"></Products >
       <Partners name='Produtos' desc='Lorem ipsum dolor sit amet, consectetur' button='CONFIRA' type='product'></Partners>
       <Brands></Brands>
       <Products types={false} productslist={productslist}></Products>
