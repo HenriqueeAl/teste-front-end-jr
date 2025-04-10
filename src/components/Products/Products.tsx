@@ -30,7 +30,7 @@ const Product = (props: Product)=>{
         : <></>}
         <li className='product'>
             <img src={props.img} alt={props.desc} />
-            <p className='product_name'>{props.desc}</p>
+            <p className='product_name'>{props.desc} </p>
             <p className='product_price'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price + 200)}</p>
             <p className='product_pricedesc'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price)}</p>
             <p className='product_parc'>ou 2x de {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price/2)} sem juros</p>
@@ -68,11 +68,8 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
     };
 
     const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
-    const [isClient, setIsClient] = useState(false); // Avoid hydration mismatch
 
     useEffect(() => {
-        setIsClient(true); // Component did mount on client
-        // Use requestAnimationFrame for smoother updates, falling back to setTimeout
         let animationFrameId: number;
         const updateTimer = () => {
           setTimeLeft(calculateTimeLeft());
@@ -83,36 +80,25 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
         animationFrameId = requestAnimationFrame(updateTimer);
 
 
-        // Clear animation frame on unmount
         return () => cancelAnimationFrame(animationFrameId);
-    }, [targetDate]); // Re-run effect if targetDate changes
+    }, [targetDate]);
 
 
     const timerComponents: JSX.Element[] = [];
 
-    // Ensure timeLeft is populated and we are on the client before rendering
-    if (isClient && Object.keys(timeLeft).length) {
+    if (Object.keys(timeLeft).length) {
         Object.keys(timeLeft).forEach((interval) => {
             const value = timeLeft[interval as keyof TimeLeft];
-            // Check if value is defined and not NaN before rendering
             if (value !== undefined && !isNaN(value)) {
                  timerComponents.push(
                     <div key={interval} className="countdownTimer__item">
                         <span className="countdownTimer__value">{value < 10 ? `0${value}` : value}</span>
-                        <span className="countdownTimer__label">{interval.charAt(0)}</span> {/* d, h, m, s */}
+                        <span className="countdownTimer__label">{interval.charAt(0)}</span>
                     </div>
                 );
             }
         });
     }
-
-
-    if (!isClient) {
-        // Render placeholder or null on the server/initial render
-        // You could render a static version or a placeholder here
-        return <div className="countdownTimer"></div>; // Render an empty container server-side
-    }
-
 
     return (
         <div className="countdownTimer">
@@ -125,7 +111,7 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 interface ProductsProps {
     productslist: Array<Object>;
     types: boolean;
-    targetDate?: string; // Make targetDate optional
+    targetDate?: string;
 }
 
 export const Products = (props: ProductsProps) => {
@@ -133,68 +119,64 @@ export const Products = (props: ProductsProps) => {
     const [idatual,setIdatual] = useState(0)
     const [maxid,setMaxid] = useState(0)
     const [productslist, setProductslist] = useState<Array<Object>>([])
-    const [width,setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0) // Initial width check
+    const [width,setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0)
 
-    const scroll = useRef<HTMLUListElement>(null); // Initialize with null
+    const scroll = useRef<HTMLUListElement>(null);
 
     useEffect(()=>{
         setProductslist(props.productslist)
     }, [props.productslist])
 
     useEffect(()=>{
-        // Recalculate maxid based on current width and product list
         if (!scroll.current || productslist.length === 0) {
             setMaxid(0);
             return;
         };
 
         const listWidth = scroll.current.offsetWidth;
-        // Assuming all items have roughly the same width, get the first item's width
         const firstItem = scroll.current.querySelector('li');
-        const itemWidth = firstItem ? firstItem.offsetWidth : 330; // Default width if no items
+        const itemWidth = firstItem ? firstItem.offsetWidth : 330;
+        const gap = firstItem ? parseFloat(window.getComputedStyle(firstItem).marginRight) : 16; // Assuming gap is marginRight
+        const effectiveItemWidth = itemWidth + gap;
 
-        // Calculate how many items fit fully within the container
-        const itemsVisible = Math.max(1, Math.floor(listWidth / itemWidth));
+        const itemsVisible = Math.max(1, Math.floor((listWidth + gap) / effectiveItemWidth));
 
         const newMaxId = Math.max(0, productslist.length - itemsVisible);
         setMaxid(newMaxId);
 
-        // Reset idatual if it's out of bounds after resize or list change
         if(idatual > newMaxId) {
             setIdatual(newMaxId);
         }
 
-    }, [productslist, width, idatual, scroll.current]); // Add scroll.current as dependency
+    }, [productslist, width, idatual, scroll.current]);
 
 
     useEffect(() => {
       if (scroll.current) {
         const firstItem = scroll.current.querySelector('li');
-        const itemWidth = firstItem ? firstItem.offsetWidth : 330; // Use actual item width if possible
-        scroll.current.scrollTo({ left: idatual * itemWidth, behavior: 'smooth' });
+        const itemWidth = firstItem ? firstItem.offsetWidth : 330;
+        const gap = firstItem ? parseFloat(window.getComputedStyle(firstItem).marginRight) : 16;
+        const effectiveItemWidth = itemWidth + gap;
+        scroll.current.scrollTo({ left: idatual * effectiveItemWidth, behavior: 'smooth' });
       }
-    }, [idatual]); // Scroll effect only depends on idatual
+    }, [idatual]);
 
 
     useEffect(()=>{
-        // Ensure this runs only on the client
         if (typeof window === 'undefined') return;
 
         const handleResize = () => {
             setWidth(window.innerWidth)
         };
         window.addEventListener('resize', handleResize);
-        // No need for handleResize() here, initial width is set in useState
 
         return () => {
             window.removeEventListener('resize', handleResize);
         }
-    }, []) // Empty dependency array ensures this runs only once on mount
+    }, [])
 
-    // Memoize product list mapping to avoid unnecessary re-renders
     const productComponents = useMemo(() => (
         productslist.map((e: any, index: number)=>{
-             // Ensure key is unique and stable, prefer productId
             const key = e.productId ? `product-${e.productId}` : `product-index-${index}`;
             return <Product key={key} img={e.photo} desc={e.descriptionShort} price={e.price}></Product>
         })
@@ -204,8 +186,7 @@ export const Products = (props: ProductsProps) => {
         <section className="products">
             <div className='products_line'></div>
             <h1>Combo de produtos selecionados</h1>
-            {/* Conditionally render the Countdown Timer only if targetDate is provided */}
-            {props.targetDate && <CountdownTimer targetDate={props.targetDate} />}
+            <CountdownTimer targetDate={props.targetDate || ''} />
 
             {props.types == true ?
             <div className='products_categorias'>
@@ -227,12 +208,11 @@ export const Products = (props: ProductsProps) => {
                     className='products_arrowleft'
                     style={idatual === 0 ? {visibility: 'hidden', cursor: 'default'} : {}}
                     onClick={()=>{
-                       // Use functional update to ensure state consistency
                        setIdatual(prevId => Math.max(0, prevId - 1));
                     }}
-                    disabled={idatual === 0} // Disable button when at start
+                    disabled={idatual === 0}
                 >
-                  <img src="/arrow.png" alt="" /> {/* Alt can be empty for decorative icons inside buttons */}
+                  <img src="/arrow.png" alt="" />
                 </button>
                 <ul ref={scroll}>
                    {productComponents}
@@ -242,12 +222,11 @@ export const Products = (props: ProductsProps) => {
                     className='products_arrowright'
                     style={idatual >= maxid ? {visibility: 'hidden', cursor: 'default'} : {}}
                     onClick={()=>{
-                        // Use functional update
                         setIdatual(prevId => Math.min(maxid, prevId + 1));
                     }}
-                     disabled={idatual >= maxid} // Disable button when at end
+                     disabled={idatual >= maxid}
                 >
-                  <img src="/arrow.png" alt="" /> {/* Alt can be empty */}
+                  <img src="/arrow.png" alt="" />
                 </button>
             </div>
         </section>
