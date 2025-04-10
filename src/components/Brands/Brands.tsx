@@ -55,7 +55,7 @@ export const Brands = ()=>{
 
     return (
         <section className='vtex-flex-layout-0-x-flexRow--brands-container'>
-            <h4 className='vtex-rich-text-0-x-heading--brands-title'>Navegue por marcas</h4>
+            <h4 className='vtex-rich-text-0-x-heading--brands-title vtex-rich-text-0-x-heading--brands-title--custom'>Navegue por marcas</h4>
             <div className='vtex-slider-layout-0-x-sliderLayoutContainer--brands'>
                 <ul ref={scroll} className='vtex-list-0-x-list--brands vtex-slider-layout-0-x-sliderTrack--brands'>
                     <Vtex></Vtex>
@@ -68,7 +68,7 @@ export const Brands = ()=>{
                     <Vtex></Vtex>
                 </ul>
             </div>
-            <div className='vtex-flex-layout-0-x-flexRow--brand-arrows'>
+            <div className='vtex-flex-layout-0-x-flexRow--brand-arrows vtex-flex-layout-0-x-flexRow--brand-arrows--custom'>
                 {idatual > 0 && (
                     <div className='vtex-slider-layout-0-x-arrow--left' onClick={()=>{
                         setIdatual(prevId => Math.max(0, prevId - 1));
