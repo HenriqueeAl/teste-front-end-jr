@@ -1,1 +1,32 @@
-// Não há código TS para modificar neste arquivo.
+import React from 'react'
+import { useCssHandles } from 'vtex.css-handles'
+import { FormattedMessage } from 'react-intl'
+
+const CSS_HANDLES = [
+  'footer__container',
+  'footer__row',
+  'footer__col',
+  'footer__text',
+] as const
+
+function StoreFooter() {
+  const handles = useCssHandles(CSS_HANDLES)
+  const currentYear = new Date().getFullYear()
+
+  return (
+    <footer className={`${handles.footer__container} bt b--muted-5 pv6 ph5`}>
+      <div className={`${handles.footer__row} flex justify-center`}>
+        <div className={`${handles.footer__col} tc`}>
+          <p className={`${handles.footer__text} c-muted-1 f6`}>
+            <FormattedMessage
+              id="store/footer.copyright"
+              values={{ year: currentYear }}
+            />
+          </p>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+export default StoreFooter
