@@ -1,90 +1,68 @@
-@import '../colors.scss';
+import React from 'react'
+import { useCssHandles } from 'vtex.css-handles'
 
-.banner{
-    max-width: 100vw;
-    height: 395px;
-    background-image: url('/bg-banner.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    .content{
-        max-width: 1280px;
-        height: 100%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        @media (max-width:1330px) {
-            padding: 0 50px;
-        }
-        h1{
-            color: $white;
-            font-size: 48px;
-            max-width: 800px;
-            font-weight: 600px;
-            line-height: 72px;
-            @media (max-width:900px) {
-                font-size: 40px;
-                max-width: 550px;
-                line-height: 50px;
-            }
-            @media (max-width:700px) {
-                font-size: 28px;
-                max-width: 450px;
-            }
-            @media (max-width:500px) {
-                font-size: 24px;
-                text-align: center;
-            }
-            @media (max-width:420px) {
-                font-size: 22px;
-                text-align: center;
-            }
-        }
-        p{
-            color: $white;
-            font-size: 36px;
-            font-weight: 600;
-            @media (max-width:900px) {
-                font-size: 30px;
-            }
-            @media (max-width:700px) {
-                font-size: 22px;
-            }
-            @media (max-width:500px) {
-                font-size: 18px;
-                text-align: center;
-            }
-            @media (max-width:420px) {
-                font-size: 16px;
-            }
-        }
-        button{
-            width: 225px;
-            height: 60px;
-            background-color: $primaryColor;
-            border: none;
-            color: $white;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 1s all;
-            @media (max-width:900px) {
-                width: 190px;
-                height: 55px;
-                font-size: 16px;
-            }
-            @media (max-width:500px) {
-                margin: 0 auto;
-            }
-        }
-        button:hover{
-            background-color: rgba(247, 25, 99,0.6);
-            font-size: 19px;
-            transition: 1s all;
-            @media (max-width:900px) {
-                font-size: 17px;
-            }
-        }
-    }
+import './styles.css'
+
+const CSS_HANDLES = ['banner', 'content', 'heading', 'paragraph', 'button']
+
+interface HomeBannerProps {
+  title: string
+  subtitle: string
+  buttonText: string
+  buttonLink: string
 }
+
+const HomeBanner: StorefrontFunctionComponent<HomeBannerProps> = ({
+  title = "Seu Título Incrível Aqui",
+  subtitle = "Um subtítulo que complementa o título.",
+  buttonText = "Saiba Mais",
+  buttonLink = "#",
+}) => {
+  const handles = useCssHandles(CSS_HANDLES)
+
+  return (
+    <div className={`${handles.banner} w-100`}>
+      <div className={`${handles.content} flex flex-column justify-around`}>
+        <h1 className={`${handles.heading}`}>{title}</h1>
+        <p className={`${handles.paragraph}`}>{subtitle}</p>
+        <a href={buttonLink}>
+          <button className={`${handles.button}`}>{buttonText}</button>
+        </a>
+      </div>
+    </div>
+  )
+}
+
+HomeBanner.schema = {
+  title: 'editor.homeBanner.title',
+  description: 'editor.homeBanner.description',
+  type: 'object',
+  properties: {
+    title: {
+      title: 'Título do Banner',
+      description: 'Texto principal exibido no banner',
+      type: 'string',
+      default: 'Seu Título Incrível Aqui',
+    },
+    subtitle: {
+      title: 'Subtítulo do Banner',
+      description: 'Texto secundário exibido abaixo do título',
+      type: 'string',
+      default: 'Um subtítulo que complementa o título.',
+    },
+    buttonText: {
+      title: 'Texto do Botão',
+      description: 'Texto exibido dentro do botão',
+      type: 'string',
+      default: 'Saiba Mais',
+    },
+    buttonLink: {
+      title: 'Link do Botão',
+      description: 'URL de destino ao clicar no botão',
+      type: 'string',
+      default: '#',
+    },
+  },
+}
+
+export default HomeBanner
