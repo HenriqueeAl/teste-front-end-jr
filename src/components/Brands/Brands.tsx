@@ -1,3 +1,4 @@
+// Código:
 import { useEffect, useRef, useState } from 'react'
 import './Brands.scss'
 
