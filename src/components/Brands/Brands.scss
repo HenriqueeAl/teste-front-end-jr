@@ -1,36 +1,32 @@
-@import '../colors.scss';
-
-.brands{
-    margin: 0 auto;
-    margin-top: 155px;
+.brands {
+  margin: 0 auto;
+  margin-top: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h4 {
+    font-weight: 700;
+    font-size: 30px;
+    color: $primaryColor;
+    @media(max-width: 680px) {
+      font-size: 24px;
+    }
+    @media(max-width: 400px) {
+      font-size: 20px;
+    }
+  }
+  .brands__list {
+    max-width: 1250px;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    h4{
-        font-weight: 700;
-        font-size: 30px;
-        color: $primaryColor;
-        @media (max-width:680px) {
-            font-size: 24px;
-        }
-        @media (max-width:400px) {
-            font-size: 20px;
-        }
+    flex-wrap: nowrap;
+    margin-top: 60px;
+    padding: 15px;
+    @media(max-width: 1300px) {
+      max-width: 90%;
     }
-    .brands_list{
-        max-width: 1250px;
-        overflow: hidden;
-        display: flex;
-        flex-wrap: nowrap;
-        margin-top: 60px;
-        padding: 15px;
-        @media (max-width:1300px) {
-            max-width: 90%;
-        }
-    }
-}
-
-.brand{
+  }
+  .brand {
     min-width: 210px;
     min-height: 210px;
     display: flex;
@@ -39,41 +35,30 @@
     box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.13);
     border-radius: 1000px;
     margin-right: 40px;
-}
-
-.brand_arrows{
+  }
+  .brand_arrows {
     display: flex;
     width: 1160px;
     justify-content: space-between;
-    @media (max-width:1300px) {
-        max-width: 90%;
+    @media(max-width: 1300px) {
+      max-width: 90%;
     }
-    .brand_arrow_rigth{
-        position: relative;
-        width: 56px;
-        height: 56px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.18);
-        border-radius: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $white;
-        top: -148px;
-        cursor: pointer;
-    }
-    
-    .brand_arrow_left{
-        position: relative;
-        width: 56px;
-        height: 56px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.18);
-        border-radius: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $white;
-        top: -148px;
-        transform: rotate(180deg);
-        cursor: pointer;
-    }
-}
+  }
+  .brand_arrow_rigth,
+  .brand_arrow_left {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.18);
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    top: -148px;
+    cursor: pointer;
+  }
+  .brand_arrow_left {
+    transform: rotate(180deg);
+  }
+  ```
