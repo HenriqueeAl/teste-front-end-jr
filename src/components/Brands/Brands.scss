@@ -1,3 +1,27 @@
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brands {
+  width: 100%;
+}
+
+.brands__title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.brands__list {
+  display: flex;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
 .brand {
   min-width: 210px;
   min-height: 210px;
@@ -18,7 +42,7 @@
 
 .brand_arrows {
   display: flex;
-  width: 1160px;
+  width: 100%;
   justify-content: space-between;
   margin-top: 20px;
 }
@@ -50,19 +74,19 @@
 }
 
 @media(max-width: 1300px) {
-  .brand_arrows {
+  .brands {
     width: 90%;
   }
 }
 
 @media(max-width: 680px) {
-  .brands h4 {
+  .brands__title {
     font-size: 24px;
   }
 }
 
 @media(max-width: 400px) {
-  .brands h4 {
+  .brands__title {
     font-size: 20px;
   }
 }
