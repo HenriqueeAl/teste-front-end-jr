@@ -16,10 +16,12 @@ export const Brands = ()=>{
     const [width,setWidth] = useState<number>(window.innerWidth)
     const [maxid,setMaxid] = useState(7-3)
 
-    const scroll = useRef<HTMLUListElement>(document.createElement("ul"))
+    const scroll = useRef<HTMLUListElement>(null)
 
     useEffect(()=>{
-        scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
+        if(scroll.current){
+            scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
+        }
         if(width < 1400 && width > 1088){
             setMaxid(7-2)
         }else if(width < 1088 && width > 800){
@@ -29,7 +31,7 @@ export const Brands = ()=>{
         }else if(width < 520){
             setMaxid(7+1)
         }
-    }, [idatual])
+    }, [idatual, width])
 
     useEffect(()=>{
         const handleResize = () => setWidth(window.innerWidth)
