@@ -49,7 +49,7 @@ export const Brands = ()=>{
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <li className='brand'>
-                    <img src="/wake.png" alt="wake" />
+                    <img src="https://images.unsplash.com/photo-1612831455543-7b7f4a4ada66?ixlib=rb-4.0.1&auto=format&fit=crop&w=800&q=80" alt="wake" />
                 </li>
             </ul>
             <div className='brand_arrows'>
