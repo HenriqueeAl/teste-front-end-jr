@@ -1,1 +1,1 @@
-<section className='brands modified-brand-section vtex-brand-section'>
+// Código alterado na seção de estilos
