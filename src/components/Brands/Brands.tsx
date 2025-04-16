@@ -4,7 +4,7 @@ import './Brands.scss'
 const Vtex = ()=>{
     return (
         <li className='brand'>
-            <img src="/vtexlogo.png" alt="logo vtex" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Vtex_logo.png" alt="logo vtex" />
         </li>
     )
 }
@@ -18,7 +18,7 @@ export const Brands = ()=>{
     const scroll = useRef<HTMLUListElement>(document.createElement("ul"))
 
     useEffect(()=>{
-        scroll.current.scrollTo(idatual * 250, 0)
+        scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
         if(width < 1400 && width > 1088){
             setMaxid(7-2)
         }else if(width < 1088 && width > 800){
@@ -51,7 +51,7 @@ export const Brands = ()=>{
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <li className='brand'>
-                    <img src="/newbrand.png" alt="nova marca" />
+                    <img src="https://images.unsplash.com/photo-1612831455547-949e9cf7d124?ixlib=rb-4.0.1&auto=format&fit=crop&w=800&q=80" alt="nova marca" />
                 </li>
             </ul>
             <div className='brand_arrows'>
