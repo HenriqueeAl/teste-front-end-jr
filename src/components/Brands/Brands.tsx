@@ -1,3 +1,4 @@
+// Novo código aqui
 import { useEffect, useRef, useState } from 'react'
 import './Brands.scss'
 
@@ -18,7 +19,7 @@ export const Brands = ()=>{
     const scroll = useRef<HTMLUListElement>(document.createElement("ul"))
 
     useEffect(()=>{
-        scroll.current.scrollTo(idatual * 250, 0)
+        scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
         if(width < 1400 && width > 1088){
             setMaxid(7-2)
         }else if(width < 1088 && width > 800){
@@ -31,10 +32,10 @@ export const Brands = ()=>{
     }, [idatual])
 
     useEffect(()=>{
-        window.addEventListener('resize', function() {
-            setWidth(this.window.innerWidth)
-        });
-    }, [width])
+        const handleResize = () => setWidth(window.innerWidth)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     return (
         <section className='brands'>
