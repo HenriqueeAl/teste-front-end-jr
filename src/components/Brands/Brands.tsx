@@ -15,12 +15,10 @@ export const Brands = ()=>{
     const [width,setWidth] = useState<number>(window.innerWidth)
     const [maxid,setMaxid] = useState(7-3)
 
-    const scroll = useRef<HTMLUListElement>(null)
+    const scroll = useRef<HTMLUListElement>(document.createElement("ul"))
 
     useEffect(()=>{
-        if(scroll.current){
-            scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
-        }
+        scroll.current.scrollTo({ left: idatual * 250, behavior: 'smooth' })
         if(width < 1400 && width > 1088){
             setMaxid(7-2)
         }else if(width < 1088 && width > 800){
@@ -30,7 +28,7 @@ export const Brands = ()=>{
         }else if(width < 520){
             setMaxid(7+1)
         }
-    }, [idatual, width])
+    }, [idatual])
 
     useEffect(()=>{
         const handleResize = () => setWidth(window.innerWidth)
@@ -51,7 +49,7 @@ export const Brands = ()=>{
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <li className='brand'>
-                    <img src="https://imgs.search.brave.com/m85LuolsHBMQO779DUP2EfvQY6gjcbLsLQY5k1MV7h8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/c2VyaWVkZXNpZ24u/Y29tLmJyL3dwL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDIzLzAz/L3RyYXktY29ycC13/YWtlLnBuZw" alt="wake" />
+                    <img src="https://imgs.search.brave.com/vNdkOvO7WR__rvpRasDuNX-tP8QtSvxxPNviF3wByGc/rs:fit:860:0:0:0/g:ce/aHR0cDovL3RyYXlj/b3JwLmtpbmdob3N0/Lm5ldC93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8xMS93YWtl/LWNvbW1lcmNlLWFw/bGljYWNhby1mdW5k/by1wcmV0by1lbS10/b25zLWRlLWNpbnphLmpwZw" alt="nova marca" />
                 </li>
             </ul>
             <div className='brand_arrows'>
