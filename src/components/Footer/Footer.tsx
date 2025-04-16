@@ -65,7 +65,7 @@ export const Footer = ()=>{
                             DE QUALQUER CONTEÚDO SEM EXPRESSA AUTORIZAÇÃO
                         </p>
                         <div className='logos'>
-                            <img src="./footer/econverse.png" alt="econverse" />
+                            <img src="https://imgs.search.brave.com/vNdkOvO7WR__rvpRasDuNX-tP8QtSvxxPNviF3wByGc/rs:fit:860:0:0:0/g:ce/aHR0cDovL3RyYXlj/b3JwLmtpbmdob3N0/Lm5ldC93cC1jb250/ZW50L3VwbG9hZHMv/MjAyMy8xMS93YWtl/LWNvbW1lcmNlLWFw/bGljYWNhby1mdW5k/by1wcmV0by1lbS10/b25zLWRlLWNpbnph/LnBuZw" alt="econverse" />
                             <img src="./footer/vtex.png" alt="vtex" />
                         </div>
                     </div>
