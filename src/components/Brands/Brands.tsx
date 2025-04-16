@@ -31,10 +31,12 @@ export const Brands = ()=>{
     }, [idatual])
 
     useEffect(()=>{
-        window.addEventListener('resize', function() {
-            setWidth(this.window.innerWidth)
-        });
-    }, [width])
+        const handleResize = () => {
+            setWidth(window.innerWidth)
+        }
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     return (
         <section className='brands'>
@@ -48,6 +50,9 @@ export const Brands = ()=>{
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <Vtex></Vtex>
+                <li className='brand'>
+                    <img src="/newbrand.png" alt="nova marca" />
+                </li>
             </ul>
             <div className='brand_arrows'>
                 {idatual != 0 ? 
