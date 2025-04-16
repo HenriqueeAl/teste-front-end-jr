@@ -12,6 +12,7 @@ export const Categs = ()=>{
                     <li><a href='#'>LANÇAMENTOS</a></li>
                     <li><a href='#' className='select'>OFERTAS DO DIA</a></li>
                     <li><a href='#'><img src="/crow.png" alt="coroa"/>ASSINATURA</a></li>
+                    <li><a href='#' className='suplementos'>SUPLEMENTOS</a></li>
                 </ul>
             </nav>
         </section>
