@@ -40,7 +40,7 @@ export const Brands = ()=>{
     }, [])
 
     return (
-        <section className='brands'>
+        <section className='brands brand-section'>
             <h4 className='brands__title'>Navegue por marcas</h4>
             <ul ref={scroll} className='brands__list'>
                 <Vtex></Vtex>
