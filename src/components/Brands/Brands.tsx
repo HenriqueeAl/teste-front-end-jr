@@ -41,8 +41,8 @@ export const Brands = ()=>{
 
     return (
         <section className='brands'>
-            <h4>Navegue por marcas</h4>
-            <ul ref={scroll} className='brands_list'>
+            <h4 className='brands__title'>Navegue por marcas</h4>
+            <ul ref={scroll} className='brands__list'>
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <Vtex></Vtex>
