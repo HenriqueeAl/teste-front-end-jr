@@ -4,7 +4,7 @@ import './Brands.scss'
 const Vtex = ()=>{
     return (
         <li className='brand'>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Vtex_logo.png" alt="logo vtex" />
+            <img src="/vtexlogo.png" alt="logo vtex" />
         </li>
     )
 }
@@ -31,9 +31,7 @@ export const Brands = ()=>{
     }, [idatual])
 
     useEffect(()=>{
-        const handleResize = () => {
-            setWidth(window.innerWidth)
-        }
+        const handleResize = () => setWidth(window.innerWidth)
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
     }, [])
@@ -51,7 +49,7 @@ export const Brands = ()=>{
                 <Vtex></Vtex>
                 <Vtex></Vtex>
                 <li className='brand'>
-                    <img src="https://images.unsplash.com/photo-1612831455547-949e9cf7d124?ixlib=rb-4.0.1&auto=format&fit=crop&w=800&q=80" alt="nova marca" />
+                    <img src="/wake.png" alt="wake" />
                 </li>
             </ul>
             <div className='brand_arrows'>
