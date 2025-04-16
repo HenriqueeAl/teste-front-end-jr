@@ -1,4 +1,3 @@
-// Código:
 import { useEffect, useRef, useState } from 'react'
 import './Brands.scss'
 
@@ -41,7 +40,7 @@ export const Brands = () => {
 
     return (
         <section className='brands modified-brand-section'>
-            <h4>Navegue por marcas</h4>
+            <h4 className='brands-title'>Navegue por marcas</h4>
             <ul ref={scroll} className='brands_list'>
                 <Vtex />
                 <Vtex />
