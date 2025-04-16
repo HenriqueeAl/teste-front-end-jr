@@ -1,3 +1,4 @@
+// Novo código aqui
 import { useState } from 'react'
 import './Header.scss'
 
@@ -8,11 +9,10 @@ interface Cardsinfos {
     textl: string
     calsstextr: string
     textr: string
-
 }
 
-const Cardsinfos = (props: Cardsinfos)=>{
-    return(
+const Cardsinfos = (props: Cardsinfos) => {
+    return (
         <div className='header_infos'>
             <img src={props.img} alt={props.alt} />
             <p className={props.calsstextl}>{props.textl} <span className={props.calsstextr}>{props.textr}</span></p>
@@ -20,8 +20,8 @@ const Cardsinfos = (props: Cardsinfos)=>{
     )
 }
 
-export const Header = ()=>{
-    const [menu,setMenu] = useState<Boolean | null>(null);
+export const Header = () => {
+    const [menu, setMenu] = useState<Boolean | null>(null);
 
     return (
         <header>
@@ -62,12 +62,9 @@ export const Header = ()=>{
                     }}/>
                 </div>
             </div>
-            
-            
-            <div className={`header_menu ${menu == true ? "open" : ""} ${menu == false ? "close": ""}`}>
+            <div className={`header_menu ${menu === true ? "open" : ""} ${menu === false ? "close": ""}`}>
                 <img src="close.png" alt="fechar" className='header_close' onClick={()=>{
                     setMenu(false)
-                    console.log(menu)
                 }}/>
                 <div className='header_mobile_icons'>
                     <ul>
@@ -86,6 +83,7 @@ export const Header = ()=>{
                             <li><a href='#'>LANÇAMENTOS</a></li>
                             <li><a href='#' className='select'>OFERTAS DO DIA</a></li>
                             <li><a href='#'><img src="/crow.png" alt="coroa"/> ASSINATURA</a></li>
+                            <li><a href='#'>SUPLEMENTOS</a></li>
                         </ul>
                     </nav>
                 </div>
