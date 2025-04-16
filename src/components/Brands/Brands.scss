@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $white;
+  background-color: #ffffff;
   cursor: pointer;
   top: 0;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -45,7 +45,7 @@
 
 .brand_arrow_rigth:hover,
 .brand_arrow_left:hover {
-  background-color: lighten($white, 10%);
+  background-color: #f0f0f0;
   transform: scale(1.05);
 }
 
