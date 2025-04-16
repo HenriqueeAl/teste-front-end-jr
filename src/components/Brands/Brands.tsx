@@ -63,7 +63,7 @@ export const Brands = ()=>{
                 <div></div>
                 }
                 {idatual+1 < maxid ? 
-                <div className='brand_arrow_rigth' onClick={()=>{
+                <div className='brand_arrow_right' onClick={()=>{
                     if(idatual+1 < maxid){
                         setIdatual(idatual+1)
                     }
